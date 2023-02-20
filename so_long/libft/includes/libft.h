@@ -6,7 +6,7 @@
 /*   By: wvallee <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 11:24:31 by wvallee           #+#    #+#             */
-/*   Updated: 2022/11/29 13:53:34 by wvallee          ###   ########.fr       */
+/*   Updated: 2023/02/20 11:19:12 by wvallee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ int		ft_strncmp(const char *s1, const char *s2, size_t n);
 char	*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 size_t	ft_strlcat(char *dst, const char *src, size_t size);
 char	*ft_strjoin(char const *s1, char const *s2);
+void	ft_clear(char **strings);
 char	**ft_split(char const *s, char c);
 int		ft_memcmp(const void *s1, const void *s2, size_t n);
 void	*ft_memchr(const void *s, int c, size_t n);

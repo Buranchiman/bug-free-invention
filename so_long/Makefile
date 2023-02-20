@@ -5,27 +5,30 @@ NAME	= so_long
 #####################################SRCS########################################
 
 SRCS	+= get_map.c
-SRCS	+= mains.c
+SRCS	+= checking.c
+SRCS	+= travel.c
+SRCS	+= main.c
 
-INCLUDE	= -Ilibft/includes -Iinclude
+INCLUDE	= -Ilibft/includes -Iinclude -I /mnt/nfs/homes/wvallee/42cursus/minilibx-linux 
 
-LINK	= -L libft -l ft
+LINK	= libft/libft.a -L /mnt/nfs/homes/wvallee/42cursus/minilibx-linux/ -lmlx -lXext -lX11
+
 
 CC		= clang
-FLAGS	= -Wall -Wextra -Werror
+CFLAGS	= -Wall -Wextra -Werror
 
 OBJS	= ${SRCS:.c=.o}
 
-all: $(NAME)
+all:  libft $(NAME)
 
 libft:
-	${MAKE} -C libft
+	${MAKE} -sC libft
 
-$(NAME): libft $(OBJS)
-	$(CC) $(CLFAGS) $(INCLUDE) $(LINK) -o $(OBJS)
+$(NAME): $(OBJS)
+	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(INCLUDE) $(LINK)
 
 %.o: %.c
-	$(CC) $(CLAGS) $(INCLUDE) -o $@ -c $<
+	$(CC) $(CFLAGS) $(INCLUDE) -o $@ -c $< -g
 
 clean:
 	rm -rf *.o

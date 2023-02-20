@@ -6,13 +6,13 @@
 /*   By: wvallee <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 14:49:58 by wvallee           #+#    #+#             */
-/*   Updated: 2022/11/24 12:33:05 by wvallee          ###   ########.fr       */
+/*   Updated: 2023/02/20 11:19:33 by wvallee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"libft.h"
 
-static void	ft_clear(char **strings)
+void	ft_clear(char **strings)
 {
 	size_t	i;
 
