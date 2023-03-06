@@ -6,7 +6,7 @@
 /*   By: wvallee <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 19:13:38 by wvallee           #+#    #+#             */
-/*   Updated: 2023/02/20 12:11:25 by wvallee          ###   ########.fr       */
+/*   Updated: 2023/03/06 16:11:32 by wvallee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define SO_LONG_H
 
 # include "ultralibft.h"
+# include "mlx.h"
 
 typedef struct	s_map
 {
@@ -26,8 +27,6 @@ typedef struct	s_map
 	unsigned int	y;
 	int				items;
 	int				count;
-	int				error;
-
 }				t_map;
 
 typedef struct s_vars
@@ -48,24 +47,30 @@ typedef struct s_vars
 	unsigned int count;
 	unsigned int items;
 	char	**map;
+	unsigned int dir;
 }				t_vars;
 
-
+void	maintain_dir(t_vars *vars);
 void walk_right(t_vars *vars);
 void walk_left(t_vars *vars);
 void walk_up(t_vars *vars);
 void walk_down(t_vars *vars);
 void walk(t_vars *vars, int keycode);
-t_map	get_data(char *name);
+int	get_data(t_map *data);
 int checkchar(char *map);
-t_map    get_map(t_map data);
-t_map fetchp(t_map data);
-int checkwalls(t_map data);
+int    get_map(t_map *data);
+void fetchp(t_map *data);
+int checkwalls(t_map *data);
 int	checkformat(char *name, char *format);
 int	checkelem(char c, char *s);
-t_map	countelem(t_map data);
-int	testmap(unsigned int x, unsigned int y, t_map data);
-t_map	checking(char *name, t_map data);
+int	countelem(t_map *data);
+int	testmap(unsigned int x, unsigned int y, t_map *data);
+int	checking(char *name, t_map *data);
 void close_esc(t_vars *vars);
+void vars_init(t_vars *vars, t_map *data);
+void put_grass(t_vars vars, int x, int y);
+void put_tree(t_vars vars, int x, int y);
+void put_play(t_vars vars, int x, int y);
+void put_ex(t_vars vars, int x, int y);
 
 #endif

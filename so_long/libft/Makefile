@@ -1,6 +1,12 @@
 NAME = libft.a
 
+
+
 #####################################LIBFT#####################################
+
+### SRCS
+
+PATH_SRCS = srcs/
 
 SRCS	+= ft_isalpha.c 
 SRCS	+= ft_isdigit.c 
@@ -59,11 +65,16 @@ SRCS	+= ft_printf_nbr.c
 SRCS	+= ft_printf_p.c
 SRCS	+= ft_printf_utils.c
 
-OBJS	= ${SRCS:.c=.o}
+vpath %.c $(PATH_SRCS)
+
+### OBJS
+
+PATH_OBJS = objs
+OBJS	= $(patsubst %.c, $(PATH_OBJS)/%.o, $(SRCS))
 
 #####################################INCLUDE###################################
 
-INCLUDE	= -Iincludes	
+INCLUDE	= -Iincludes
 
 CFLAGS = -Wall -Werror -Wextra
 AR = ar rcs
@@ -74,18 +85,19 @@ CC = clang
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	$(AR) $@ $^
+	$(AR) $(NAME) $(OBJS)
 
-%.o: %.c
-	$(CC) $(CFLAGS) $(INCLUDE) -o $@ -c $<
+$(OBJS) : $(PATH_OBJS)/%.o:%.c
+		mkdir -p $(PATH_OBJS)
+		$(CC) $(CFLAGS) -c $< -o $@ $(INCLUDE)
 
 clean:
-	rm -rf *.o
+	rm -r $(PATH_OBJS)
 
 fclean: clean
 	rm -rf $(NAME)
 
 re: fclean
-		${MAKE}
+		$(MAKE)
 
 .PHONY: all clean fclean re
