@@ -6,7 +6,7 @@
 /*   By: wvallee <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 15:41:28 by wvallee           #+#    #+#             */
-/*   Updated: 2023/03/06 16:37:22 by wvallee          ###   ########.fr       */
+/*   Updated: 2023/03/09 16:23:47 by wvallee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,8 +83,6 @@ int	testmap(unsigned int x, unsigned int y, t_map *data)
 	if (data->map[y][x] == '1')
 		return (0);
 	if (y > data->nb || x > data->size)
-		return (0);
-	if (x < 0 || y < 0)
 		return (0);
 	data->map[y][x] = '1';
 	if (testmap(x + 1, y, data) == 1)

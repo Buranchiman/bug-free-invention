@@ -6,7 +6,7 @@
 /*   By: wvallee <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 11:51:27 by wvallee           #+#    #+#             */
-/*   Updated: 2023/03/06 16:37:46 by wvallee          ###   ########.fr       */
+/*   Updated: 2023/03/09 12:14:24 by wvallee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ void	walk_right(t_vars *vars)
 			mlx_put_image_to_window(vars->mlx, vars->win, vars->img,
 				vars->x * 64, vars->y * 64);
 		vars->x += 1;
-		ft_printf("number of moves is %d\n", vars->move);
 	}
 	if (vars->map[vars->y][vars->x] == 'E' && vars->count != vars->items)
 		mlx_put_image_to_window(vars->mlx, vars->win, vars->esc,
@@ -48,7 +47,6 @@ void	walk_left(t_vars *vars)
 			mlx_put_image_to_window(vars->mlx, vars->win, vars->img,
 				vars->x * 64, vars->y * 64);
 		vars->x -= 1;
-		ft_printf("number of moves is %d\n", vars->move);
 	}
 	if (vars->map[vars->y][vars->x] == 'E' && vars->count != vars->items)
 		mlx_put_image_to_window(vars->mlx, vars->win, vars->escl,
@@ -70,7 +68,6 @@ void	walk_up(t_vars *vars)
 			mlx_put_image_to_window(vars->mlx, vars->win, vars->img,
 				vars->x * 64, vars->y * 64);
 		vars->y -= 1;
-		ft_printf("number of moves is %d\n", vars->move);
 		maintain_dir(vars);
 	}
 }
@@ -87,7 +84,6 @@ void	walk_down(t_vars *vars)
 			mlx_put_image_to_window(vars->mlx, vars->win, vars->img,
 				vars->x * 64, vars->y * 64);
 		vars->y += 1;
-		ft_printf("number of moves is %d\n", vars->move);
 		maintain_dir(vars);
 	}
 }
@@ -102,6 +98,7 @@ void	walk(t_vars *vars, int keycode)
 		walk_down(vars);
 	if (keycode == 97)
 		walk_left(vars);
+	ft_printf("\rnumber of moves is %d", vars->move);
 	if (vars->map[vars->y][vars->x] == 'C')
 	{
 		vars->map[vars->y][vars->x] = '0';
@@ -109,7 +106,7 @@ void	walk(t_vars *vars, int keycode)
 	}
 	if (vars->map[vars->y][vars->x] == 'E' && vars->count == vars->items)
 	{
-		ft_printf("He pulled up !\nYou won !");
+		ft_printf("\nHe pulled up !\nYou won !");
 		close_esc(vars);
 	}
 }
