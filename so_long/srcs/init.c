@@ -20,14 +20,14 @@ void	vars_init(t_vars *vars, t_map *data)
 	vars->mlx = mlx_init();
 	vars->win = mlx_new_window(vars->mlx,
 			64 * (data->size - 1), 64 * data->nb, "so_loooong");
-	vars->img = mlx_xpm_file_to_image(vars->mlx, "visuals/grass.xpm", &l, &h);
-	vars->bg = mlx_xpm_file_to_image(vars->mlx, "visuals/tree.xpm", &l, &h);
-	vars->mc = mlx_xpm_file_to_image(vars->mlx, "visuals/pullup0.xpm", &l, &h);
-	vars->l = mlx_xpm_file_to_image(vars->mlx, "visuals/pullupl0.xpm", &l, &h);
-	vars->c = mlx_xpm_file_to_image(vars->mlx, "visuals/Keys.xpm", &l, &h);
-	vars->e = mlx_xpm_file_to_image(vars->mlx, "visuals/TopG.xpm", &l, &h);
-	vars->esc = mlx_xpm_file_to_image(vars->mlx, "visuals/escr.xpm", &l, &h);
-	vars->escl = mlx_xpm_file_to_image(vars->mlx, "visuals/escl.xpm", &l, &h);
+	vars->img = mlx_xpm_file_to_image(vars->mlx, "xpm/grass.xpm", &l, &h);
+	vars->bg = mlx_xpm_file_to_image(vars->mlx, "xpm/tree.xpm", &l, &h);
+	vars->mc = mlx_xpm_file_to_image(vars->mlx, "xpm/pullup0.xpm", &l, &h);
+	vars->l = mlx_xpm_file_to_image(vars->mlx, "xpm/pullupl0.xpm", &l, &h);
+	vars->c = mlx_xpm_file_to_image(vars->mlx, "xpm/Keys.xpm", &l, &h);
+	vars->e = mlx_xpm_file_to_image(vars->mlx, "xpm/TopG.xpm", &l, &h);
+	vars->esc = mlx_xpm_file_to_image(vars->mlx, "xpm/escr.xpm", &l, &h);
+	vars->escl = mlx_xpm_file_to_image(vars->mlx, "xpm/escl.xpm", &l, &h);
 	vars->map = ft_split(data->buffer, '\n');
 	vars->x = data->x;
 	vars->y = data->y;

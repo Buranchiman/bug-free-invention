@@ -11,7 +11,13 @@ SRCS	+= checking.c
 SRCS	+= direction.c
 SRCS	+= travel.c
 SRCS	+= init.c
-SRCS	+= main.c
+SRCS	+= window.c
+MAIN	+= srcs/main.c
+
+SRCS_BONUS += anim_start_bonus.c
+SRCS_BONUS += anim_bonus.c
+SRCS_BONUS += travel_bonus.c
+MAIN_BONUS += srcs/main_bonus.c
 
 vpath %.c $(PATH_SRCS)
 
@@ -19,6 +25,8 @@ vpath %.c $(PATH_SRCS)
 
 PATH_OBJS = objs
 OBJS	= $(patsubst %.c, $(PATH_OBJS)/%.o, $(SRCS))
+
+OBJS_BONUS	= $(patsubst %.c, $(PATH_OBJS)/%.o, $(SRCS_BONUS))
 
 ################################COMPILATION####################################
 
@@ -37,9 +45,18 @@ libft:
 	${MAKE} -sC libft
 
 $(NAME): $(OBJS)
-	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(INCLUDE) $(LINK) -g 
+	$(CC) $(CFLAGS) -c $(MAIN) -o objs/main.o $(INCLUDE)
+	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) objs/main.o $(INCLUDE) $(LINK) -g3 
 
 $(OBJS) : $(PATH_OBJS)/%.o:%.c
+		mkdir -p $(PATH_OBJS)
+		$(CC) $(CFLAGS) -c $< -o $@ $(INCLUDE)
+
+bonus: $(OBJS) $(OBJS_BONUS)
+	$(CC) $(CFLAGS) -c $(MAIN_BONUS) -o objs/main_bonus.o $(INCLUDE)
+	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(OBJS_BONUS) objs/main_bonus.o $(INCLUDE) $(LINK) -g3	
+
+$(OBJS_BONUS) : $(PATH_OBJS)/%.o:%.c
 		mkdir -p $(PATH_OBJS)
 		$(CC) $(CFLAGS) -c $< -o $@ $(INCLUDE)
 
