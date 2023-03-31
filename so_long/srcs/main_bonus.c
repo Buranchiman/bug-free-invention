@@ -36,7 +36,8 @@ int	main(int argc, char **argv)
 		return (0);
 	vars_init(&vars, &data);
 	show_map(vars);
-	initframes(&vars);
+	if (initframes(&vars) == 0)
+		close_esc(&vars);
 	mlx_set_font(vars.mlx, vars.win, "9x15bold");
 	mlx_key_hook(vars.win, getkeyb, &vars);
 	mlx_hook(vars.win, 17, 0L, close_esc, &vars);

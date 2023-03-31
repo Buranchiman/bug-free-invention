@@ -32,18 +32,23 @@ typedef struct	s_map
 typedef struct s_frames
 {
 	void	**f;
-	char	**sf;
-	void	**lf;
-	char	**slf;
-	void	**ur;
-	char	**sur;
-	void	**ul;
-	char	**sul;
+	int		nbframes;
 }				t_frames;
 
 typedef struct s_vars
 {
-	t_frames	frames;
+	t_frames	exitr;
+	t_frames	enterr;
+	t_frames	exitcarr;
+	t_frames	entercarr;
+	t_frames	enterkeyr;
+	t_frames	exitl;
+	t_frames	enterl;
+	t_frames	exitcarl;
+	t_frames	entercarl;
+	t_frames	enterkeyl;
+	t_frames	upleft;
+	t_frames	upright;
 	void		*mlx;
 	void		*win;
 	void		*img;
@@ -97,10 +102,10 @@ int	walk_r(t_vars *vars);
 int	walk_l(t_vars *vars);
 void	walk_u(t_vars *vars);
 void	walk_d(t_vars *vars);
-void	initframes(t_vars *vars);
-char	**startframe(t_vars *vars, void **f, char *s, int nb);
-void	preppath(char *s, char *nbr, char **text);
+int	initframes(t_vars *vars);
+int	startframe(t_vars *vars, t_frames *frames, char *s, int nb);
+void	preppath(char *s, char *nbr, char *text);
 char	**textforframes(char *s, int nb);
-int	slidein(char **s, char *content, int index);
+int	slidein(char *s, char *content, int index);
 
 #endif
