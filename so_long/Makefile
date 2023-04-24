@@ -16,7 +16,9 @@ MAIN	+= srcs/main.c
 
 SRCS_BONUS += anim_start_bonus.c
 SRCS_BONUS += anim_bonus.c
+SRCS_BONUS += anim2_bonus.c
 SRCS_BONUS += travel_bonus.c
+SRCS_BONUS += bbeg_bonus.c
 MAIN_BONUS += srcs/main_bonus.c
 
 vpath %.c $(PATH_SRCS)

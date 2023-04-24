@@ -31,27 +31,29 @@ void	vars_init(t_vars *vars, t_map *data)
 	vars->map = ft_split(data->buffer, '\n');
 	vars->x = data->x;
 	vars->y = data->y;
+	vars->topx = data->topx;
+	vars->topy = data->topy;
 	vars->items = data->items - 1;
 	free(data->buffer);
-	ft_clear(data->map);
+	ft_clear((void **)data->map);
 }
 
-void	put_grass(t_vars vars, int x, int y)
+void	put_grass(t_vars *vars, int x, int y)
 {
-	mlx_put_image_to_window(vars.mlx, vars.win, vars.img, x * 64, y * 64);
+	mlx_put_image_to_window(vars->mlx, vars->win, vars->img, x * 64, y * 64);
 }
 
-void	put_tree(t_vars vars, int x, int y)
+void	put_tree(t_vars *vars, int x, int y)
 {
-	mlx_put_image_to_window(vars.mlx, vars.win, vars.bg, x * 64, y * 64);
+	mlx_put_image_to_window(vars->mlx, vars->win, vars->bg, x * 64, y * 64);
 }
 
-void	put_play(t_vars vars, int x, int y)
+void	put_play(t_vars *vars, int x, int y)
 {
-	mlx_put_image_to_window(vars.mlx, vars.win, vars.mc, x * 64, y * 64);
+	mlx_put_image_to_window(vars->mlx, vars->win, vars->mc, x * 64, y * 64);
 }
 
-void	put_ex(t_vars vars, int x, int y)
+void	put_ex(t_vars *vars, int x, int y)
 {
-	mlx_put_image_to_window(vars.mlx, vars.win, vars.e, x * 64, y * 64);
+	mlx_put_image_to_window(vars->mlx, vars->win, vars->e, x * 64, y * 64);
 }

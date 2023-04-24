@@ -6,7 +6,7 @@
 /*   By: wvallee <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 17:43:29 by wvallee           #+#    #+#             */
-/*   Updated: 2023/02/22 13:43:50 by wvallee          ###   ########.fr       */
+/*   Updated: 2023/04/24 14:58:40 by wvallee          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,10 @@ int	get_data(t_map *data)
 		i++;
 		ret = get_next_line(fd);
 		if (ft_strlen(ret) != data->size && ret != NULL)
+		{
+			free(ret);
 			return (0);
+		}
 		free(ret);
 	}
 	data->nb = i;
@@ -68,34 +71,14 @@ int	get_map(t_map *data)
 		return (0);
 	}
 	total = data->size * data->nb;
-	buffer = calloc(total + 1, sizeof(char));
+	buffer = ft_calloc(total + 1, sizeof(char));
 	fd = open(data->name, O_RDONLY);
 	read(fd, buffer, total);
-	if (checkchar(buffer) == 0)
-		return (0);
 	data->map = ft_split(buffer, '\n');
 	data->buffer = ft_strdup(buffer);
 	free(buffer);
 	close(fd);
 	return (1);
-}
-
-void	fetchp(t_map *data)
-{
-	int	i;
-	int	p;
-
-	i = 0;
-	while (data->map[i] != NULL)
-	{
-		p = ft_index(data->map[i], 'P');
-		if (p != -1)
-		{
-			data->y = i;
-			data->x = p;
-		}
-		i++;
-	}
 }
 
 int	checkwalls(t_map *data)
@@ -120,5 +103,32 @@ int	checkwalls(t_map *data)
 		i++;
 	if (data->map[j][i] != '\0')
 		return (0);
+	return (1);
+}
+
+int	checkall(char *name, t_map *data)
+{
+	if (checkformat(name, ".ber") == 0)
+		return (0);
+	if (get_map(data) == 0)
+		return (0);
+	if (checkchar(data->buffer) == 0)
+	{
+		free(data->buffer);
+		ft_clear((void **)data->map);
+		return (0);
+	}
+	if (checkwalls(data) == 0)
+	{
+		ft_clear((void **)data->map);
+		free(data->buffer);
+		ft_printf("Error\nThe map isn't surrounded by walls\n");
+		return (0);
+	}
+	if (countelem(data) == -1)
+	{
+		ft_printf("Error\nIncorrect number of Exit/Collectible/Start point\n");
+		return (0);
+	}
 	return (1);
 }

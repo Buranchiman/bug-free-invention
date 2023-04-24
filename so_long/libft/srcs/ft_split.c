@@ -12,7 +12,7 @@
 
 #include"libft.h"
 
-void	ft_clear(char **strings)
+void	ft_clear(void **strings)
 {
 	size_t	i;
 
@@ -87,7 +87,7 @@ char	**ft_split(char const *s, char c)
 		strings[i] = get_word(&s, c);
 		if (strings[i] == NULL)
 		{
-			ft_clear(strings);
+			ft_clear((void **)strings);
 			break ;
 		}
 		i++;

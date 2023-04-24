@@ -69,7 +69,11 @@ int	countelem(t_map *data)
 		j++;
 	}
 	if (e != 1 || p != 1 || c < 1)
-		return (0);
+	{
+		free(data->buffer);
+		ft_clear((void **)data->map);
+		return (-1);
+	}
 	data->items = c + e;
 	return (1);
 }
@@ -80,7 +84,7 @@ int	testmap(unsigned int x, unsigned int y, t_map *data)
 		data->count += 1;
 	if (data->count == data->items)
 		return (1);
-	if (data->map[y][x] == '1')
+	if (data->map[y][x] == '1' || data->map[y][x] == 'X')
 		return (0);
 	if (y > data->nb || x > data->size)
 		return (0);
@@ -96,26 +100,14 @@ int	testmap(unsigned int x, unsigned int y, t_map *data)
 	return (0);
 }
 
-int	checking(char *name, t_map *data)
+int	checking(t_map *data)
 {
-	if (checkformat(name, ".ber") == 0)
-		return (0);
-	if (get_map(data) == 0)
-		return (0);
-	if (checkwalls(data) == 0)
-	{
-		ft_printf("Error\nThe map isn't surrounded by walls\n");
-		return (0);
-	}
-	if (countelem(data) == -1)
-	{
-		ft_printf("Error\nIncorrect number of Exit/Collectible/Start point\n");
-		return (0);
-	}
 	data->count = 0;
-	fetchp(data);
+	gps(data, &data->x, &data->y, 'P');
 	if (testmap(data->x, data->y, data) == 0)
 	{
+		ft_clear((void **)data->map);
+		free(data->buffer);
 		ft_printf("Error\nCollectible or exit not reachable\n");
 		return (0);
 	}

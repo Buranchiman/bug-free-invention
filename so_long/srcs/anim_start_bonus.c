@@ -14,32 +14,14 @@
 
 int	initframes(t_vars *vars)
 {
-	ft_printf("entering init\n");
-	if (startframe(vars, &(vars->exitr), "exitr", 7) == 0)
+	if (inithorizontal(vars) == 0)
 		return (0);
-	ft_printf("exitr finished\n");
-	if (startframe(vars, &(vars->enterr), "enterr", 7) == 0)
+	if (initup(vars) == 0)
 		return (0);
-	if (startframe(vars, &(vars->exitcarr), "exitcarr", 7) == 0)
+	if (initdown(vars) == 0)
 		return (0);
-	if (startframe(vars, &(vars->entercarl), "entercarr", 7) == 0)
+	if (startframe(vars, &(vars->tate), "tate", 5) == 0)
 		return (0);
-	if (startframe(vars, &(vars->enterkeyr), "enterkeyr", 2) == 0)
-		return (0);
-	if (startframe(vars, &(vars->exitl), "exitl", 7) == 0)
-		return (0);
-	if (startframe(vars, &(vars->enterl), "enterl", 7) == 0)
-		return (0);
-	if (startframe(vars, &(vars->exitcarl), "exitcarl", 7) == 0)
-		return (0);
-	if (startframe(vars, &(vars->exitcarl), "entercarl", 7) == 0)
-		return (0);
-	if (startframe(vars, &(vars->enterkeyl), "enterkeyl", 2) == 0)
-		return (0);
-	// if (startframe(vars, &(vars->upleft), "ul", 11) == 0)
-	// 	return (0);
-	// if (startframe(vars, &(vars->upright), "ur", 11) == 0)
-	// 	return (0);
 	return (1);
 }
 
@@ -51,17 +33,10 @@ int	startframe(t_vars *vars, t_frames *frames, char *s, int nb)
 	int		h;
 
 	i = 0;
-	//j = 0;
 	frames->f = malloc(sizeof(void *) * (nb + 1));
 	if ((frames->f) == NULL)
 		return (0);
-	ft_printf("filling tab\n");
 	tab = textforframes(s, nb);
-	while (*tab != NULL)
-	{
-		ft_printf("%s\n", *tab);
-		tab++;
-	}
 	if (tab == NULL)
 		return (0);
 	while (i < nb)
@@ -69,7 +44,8 @@ int	startframe(t_vars *vars, t_frames *frames, char *s, int nb)
 		frames->f[i] = mlx_xpm_file_to_image(vars->mlx, tab[i], &l, &h);
 		i++;
 	}
-	ft_clear(tab);
+	ft_clear((void **)tab);
+	frames->nbframes = nb;
 	return (1);
 }
 
@@ -113,16 +89,16 @@ char	**textforframes(char *s, int nb)
 	while (i <= nb)
 	{
 		nbr = ft_itoa(i);
-		tab[i] = ft_calloc((8 + len + ft_strlen(nbr)) + 1, sizeof(char));
-		if (tab[i] == NULL)
+		tab[i - 1] = ft_calloc((8 + len + ft_strlen(nbr)) + 1, sizeof(char));
+		if (tab[i - 1] == NULL)
 		{
-			ft_clear(tab);
+			ft_clear((void **)tab);
 			return (NULL);
 		}
-		preppath(s, nbr, tab[i]);
+		preppath(s, nbr, tab[i - 1]);
 		free(nbr);
 		i++;
 	}
-	tab[i] = NULL;
+	tab[i - 1] = NULL;
 	return (tab);
 }

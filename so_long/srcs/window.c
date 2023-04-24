@@ -24,7 +24,7 @@ int	close_esc(t_vars *vars)
 	mlx_destroy_image(vars->mlx, vars->escl);
 	mlx_destroy_window(vars->mlx, vars->win);
 	mlx_destroy_display(vars->mlx);
-	ft_clear(vars->map);
+	ft_clear((void **)vars->map);
 	free(vars->mlx);
 	exit(0);
 }
@@ -51,16 +51,16 @@ void	show_map(t_vars vars)
 		while (vars.map[y][x] != '\0')
 		{
 			if (vars.map[y][x] == '0')
-				put_grass(vars, x, y);
+				put_grass(&vars, x, y);
 			else if (vars.map[y][x] == '1')
-				put_tree(vars, x, y);
+				put_tree(&vars, x, y);
 			else if (vars.map[y][x] == 'P')
-				put_play(vars, x, y);
+				put_play(&vars, x, y);
 			else if (vars.map[y][x] == 'C')
 				mlx_put_image_to_window(vars.mlx, vars.win, vars.c,
 					x * 64, y * 64);
 			else if (vars.map[y][x] == 'E')
-				put_ex(vars, x, y);
+				put_ex(&vars, x, y);
 			x ++;
 		}
 		y ++;

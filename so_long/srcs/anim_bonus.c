@@ -22,19 +22,19 @@ void	anim_r(t_vars *vars)
 		if (vars->map[vars->y][vars->x] == 'E')
 			mlx_put_image_to_window(vars->mlx, vars->win, vars->exitcarr.f[i],
 				vars->x * 64, vars->y * 64);
-		else 
+		else
 			mlx_put_image_to_window(vars->mlx, vars->win, vars->exitr.f[i],
 				vars->x * 64, vars->y * 64);
 		if (vars->map[vars->y][vars->x + 1] == 'E')
 			mlx_put_image_to_window(vars->mlx, vars->win, vars->entercarr.f[i],
-				vars->x * 64, vars->y * 64);
+				(vars->x + 1) * 64, vars->y * 64);
 		else if (vars->map[vars->y][vars->x + 1] == 'C' && i < 1)
 			mlx_put_image_to_window(vars->mlx, vars->win, vars->enterkeyr.f[i],
 				(vars->x + 1) * 64, vars->y * 64);
 		else
 			mlx_put_image_to_window(vars->mlx, vars->win, vars->enterr.f[i],
 				(vars->x + 1) * 64, vars->y * 64);
-		usleep(30000);
+		usleep(45000);
 		mlx_do_sync(vars->mlx);
 		i ++;
 	}
@@ -50,66 +50,78 @@ void	anim_l(t_vars *vars)
 		if (vars->map[vars->y][vars->x] == 'E')
 			mlx_put_image_to_window(vars->mlx, vars->win, vars->exitcarl.f[i],
 				vars->x * 64, vars->y * 64);
-		else 
+		else
 			mlx_put_image_to_window(vars->mlx, vars->win, vars->exitl.f[i],
 				vars->x * 64, vars->y * 64);
 		if (vars->map[vars->y][vars->x - 1] == 'E')
 			mlx_put_image_to_window(vars->mlx, vars->win, vars->entercarl.f[i],
-				vars->x * 64, vars->y * 64);
+				(vars->x - 1) * 64, vars->y * 64);
 		else if (vars->map[vars->y][vars->x - 1] == 'C' && i < 2)
 			mlx_put_image_to_window(vars->mlx, vars->win, vars->enterkeyr.f[i],
 				(vars->x - 1) * 64, vars->y * 64);
 		else
 			mlx_put_image_to_window(vars->mlx, vars->win, vars->enterl.f[i],
 				(vars->x - 1) * 64, vars->y * 64);
-		usleep(30000);
+		usleep(45000);
 		mlx_do_sync(vars->mlx);
 		i ++;
 	}
 }
 
-void	anim_ul(t_vars *vars)
+void	anim_ur(t_vars *vars, int i)
 {
-	int	i;
-
-	i = 0;
-	while (i < 12)
+	if (vars->map[vars->y][vars->x] == 'E' && i <= 5)
 	{
-		mlx_put_image_to_window(vars->mlx, vars->win, vars->upleft.f[i],
+		mlx_put_image_to_window(vars->mlx, vars->win, vars->exitcarupr.f[i],
 			vars->x * 64, vars->y * 64);
-		mlx_put_image_to_window(vars->mlx, vars->win, vars->upleft.f[i + 1],
-			vars->x * 64, (vars->y - 1) * 64);
-		usleep(30000);
-		mlx_do_sync(vars->mlx);
-		i = i +2;
 	}
-	if (vars->map[vars->y][vars->x] == 'E' && vars->count != vars->items)
-		mlx_put_image_to_window(vars->mlx, vars->win, vars->e,
+	else if (i <= 5)
+	{
+		mlx_put_image_to_window(vars->mlx, vars->win, vars->exitupr.f[i],
 			vars->x * 64, vars->y * 64);
-	else
-		mlx_put_image_to_window(vars->mlx, vars->win, vars->img,
-			vars->x * 64, vars->y * 64);	
+	}
+	if (vars->map[vars->y - 1][vars->x] == 'E' && i > 1)
+	{
+		mlx_put_image_to_window(vars->mlx, vars->win,
+			vars->entercarupr.f[i - 2], vars->x * 64, (vars->y - 1) * 64);
+	}
+	else if (vars->map[vars->y - 1][vars->x] == 'C' && i > 1 && i < 5)
+	{
+		mlx_put_image_to_window(vars->mlx, vars->win, vars->upkeyr.f[i - 2],
+			vars->x * 64, (vars->y - 1) * 64);
+	}
+	else if (i > 1)
+	{
+		mlx_put_image_to_window(vars->mlx, vars->win,
+			vars->enterupr.f[i - 2], vars->x * 64, (vars->y - 1) * 64);
+	}
 }
 
-void	anim_ur(t_vars *vars)
+void	anim_ul(t_vars *vars, int i)
 {
-	int	i;
-
-	i = 0;
-	while (i < 12)
+	if (vars->map[vars->y][vars->x] == 'E' && i <= 5)
 	{
-		mlx_put_image_to_window(vars->mlx, vars->win, vars->upright.f[i],
+		mlx_put_image_to_window(vars->mlx, vars->win, vars->exitcarupl.f[i],
 			vars->x * 64, vars->y * 64);
-		mlx_put_image_to_window(vars->mlx, vars->win, vars->upright.f[i + 1],
-			vars->x * 64, (vars->y - 1) * 64);
-		usleep(30000);
-		mlx_do_sync(vars->mlx);
-		i = i +2;
 	}
-	if (vars->map[vars->y][vars->x] == 'E' && vars->count != vars->items)
-		mlx_put_image_to_window(vars->mlx, vars->win, vars->e,
+	else if (i <= 5)
+	{
+		mlx_put_image_to_window(vars->mlx, vars->win, vars->exitupl.f[i],
 			vars->x * 64, vars->y * 64);
-	else
-		mlx_put_image_to_window(vars->mlx, vars->win, vars->img,
-			vars->x * 64, vars->y * 64);
+	}
+	if (vars->map[vars->y - 1][vars->x] == 'E' && i > 1)
+	{
+		mlx_put_image_to_window(vars->mlx, vars->win,
+			vars->entercarupl.f[i - 2], vars->x * 64, (vars->y - 1) * 64);
+	}
+	else if (vars->map[vars->y - 1][vars->x] == 'C' && i > 1)
+	{
+		mlx_put_image_to_window(vars->mlx, vars->win, vars->upkeyl.f[i - 2],
+			vars->x * 64, (vars->y - 1) * 64);
+	}
+	else if (i > 1)
+	{
+		mlx_put_image_to_window(vars->mlx, vars->win,
+			vars->enterupl.f[i - 2], vars->x * 64, (vars->y - 1) * 64);
+	}
 }

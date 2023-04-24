@@ -24,6 +24,10 @@ int	walk_r(t_vars *vars)
 	if (vars->map[vars->y][vars->x + 1] != '1')
 	{
 		anim_r(vars);
+		if (vars->map[vars->y][vars->x] == 'E' && vars->count != vars->items)
+			put_ex(vars, vars->x, vars->y);
+		else
+			put_grass(vars, vars->x, vars->y);
 		vars->x += 1;
 		vars->move++;
 		if (vars->map[vars->y][vars->x] == 'E' && vars->count != vars->items)
@@ -48,13 +52,17 @@ int	walk_l(t_vars *vars)
 	if (vars->map[vars->y][vars->x - 1] != '1')
 	{
 		anim_l(vars);
+		if (vars->map[vars->y][vars->x] == 'E' && vars->count != vars->items)
+			put_ex(vars, vars->x, vars->y);
+		else
+			put_grass(vars, vars->x, vars->y);
 		vars->x -= 1;
 		if (vars->map[vars->y][vars->x] == 'E' && vars->count != vars->items)
 			mlx_put_image_to_window(vars->mlx, vars->win, vars->escl,
 				vars->x * 64, vars->y * 64);
 		else
 			mlx_put_image_to_window(vars->mlx, vars->win, vars->l,
-				vars->x * 64, vars->y * 64);		
+				vars->x * 64, vars->y * 64);
 		vars->move++;
 	}
 	return (0);
@@ -62,30 +70,55 @@ int	walk_l(t_vars *vars)
 
 void	walk_u(t_vars *vars)
 {
+	int	i;
+
+	i = 0;
 	if (vars->map[vars->y - 1][vars->x] != '1')
 	{
-		if (vars->dir == 1)
-			anim_ul(vars);
+		while (i <= 6)
+		{
+			if (vars->dir == 0)
+				anim_ur(vars, i);
+			else
+				anim_ul(vars, i);
+			i++;
+			usleep(45000);
+			mlx_do_sync(vars->mlx);
+		}
+		if (vars->map[vars->y][vars->x] == 'E' && vars->count != vars->items)
+			put_ex(vars, vars->x, vars->y);
 		else
-			anim_ur(vars);
-		vars->move++;
+			put_grass(vars, vars->x, vars->y);
 		vars->y -= 1;
-		maintain_dir(vars);		
+		vars->move++;
+		maintain_dir(vars);
 	}
 }
 
 void	walk_d(t_vars *vars)
 {
+	int	i;
+
+	i = 0;
 	if (vars->map[vars->y + 1][vars->x] != '1')
 	{
-		vars->move++;
-		if (vars->map[vars->y][vars->x] == 'E' && vars->count != vars->items)
-			mlx_put_image_to_window(vars->mlx, vars->win, vars->e,
-				vars->x * 64, vars->y * 64);
-		else
-			mlx_put_image_to_window(vars->mlx, vars->win, vars->img,
-				vars->x * 64, vars->y * 64);
+		while (i <= 6)
+		{
+			if (vars->dir == 0)
+				anim_dr(vars, i);
+			else
+				anim_dl(vars, i);
+			if (vars->map[vars->y][vars->x] == 'E' && vars->count != vars->items
+					&& i > 4)
+				put_ex(vars, vars->x, vars->y);
+			else if (i > 4)
+				put_grass(vars, vars->x, vars->y);
+			i++;
+			usleep(45000);
+			mlx_do_sync(vars->mlx);
+		}
 		vars->y += 1;
+		vars->move++;
 		maintain_dir(vars);
 	}
 }
@@ -115,6 +148,6 @@ void	walkwin(t_vars *vars, int keycode)
 	if (vars->map[vars->y][vars->x] == 'E' && vars->count == vars->items)
 	{
 		ft_printf("He pulled up !\nYou won !");
-		close_esc(vars);
+		close_all(vars);
 	}
 }
