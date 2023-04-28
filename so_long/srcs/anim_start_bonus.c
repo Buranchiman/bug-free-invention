@@ -20,8 +20,8 @@ int	initframes(t_vars *vars)
 		return (0);
 	if (initdown(vars) == 0)
 		return (0);
-	if (startframe(vars, &(vars->tate), "tate", 5) == 0)
-		return (0);
+	vars->tate = mlx_xpm_file_to_image(vars->mlx, "xpm/tate5.xpm",
+			&vars->contain, &vars->contain);
 	return (1);
 }
 

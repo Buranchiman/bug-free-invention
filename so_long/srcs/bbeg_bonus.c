@@ -12,21 +12,16 @@
 
 #include "so_long.h"
 
-int	top_g(t_vars *vars)
+void	gameover(t_vars *vars, char c)
 {
-	int	i;
-
-	i = 0;
-	while (i <= 4)
+	if ((vars->x + 1 == vars->topx && vars->y == vars->topy && c == 'r')
+		|| (vars->x - 1 == vars->topx && vars->y == vars->topy && c == 'l')
+		|| (vars->x == vars->topx && vars->y + 1 == vars->topy && c == 'd')
+		|| (vars->x == vars->topx && vars->y - 1 == vars->topy && c == 'u'))
 	{
-		mlx_put_image_to_window(vars->mlx, vars->win, vars->tate.f[i],
-			vars->topx * 64, vars->topy * 64);
-		usleep(50000);
-		mlx_do_sync(vars->mlx);
-		i++;
+		ft_printf("Game over !\nThe TopG caught you");
+		close_all(vars);
 	}
-	usleep(1000000);
-	return (0);
 }
 
 void	close_anim(t_vars *vars, t_frames frames)

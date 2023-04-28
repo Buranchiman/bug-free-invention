@@ -1,6 +1,7 @@
 #####################################SO_LONG#####################################
 
 NAME	= so_long
+NAME_BONUS = so_long_bonus
 
 #####################################SRCS########################################
 
@@ -19,7 +20,7 @@ SRCS_BONUS += anim_bonus.c
 SRCS_BONUS += anim2_bonus.c
 SRCS_BONUS += travel_bonus.c
 SRCS_BONUS += bbeg_bonus.c
-MAIN_BONUS += srcs/main_bonus.c
+SRCS_BONUS += main_bonus.c
 
 vpath %.c $(PATH_SRCS)
 
@@ -54,9 +55,11 @@ $(OBJS) : $(PATH_OBJS)/%.o:%.c
 		mkdir -p $(PATH_OBJS)
 		$(CC) $(CFLAGS) -c $< -o $@ $(INCLUDE)
 
-bonus: $(OBJS) $(OBJS_BONUS)
-	$(CC) $(CFLAGS) -c $(MAIN_BONUS) -o objs/main_bonus.o $(INCLUDE)
-	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(OBJS_BONUS) objs/main_bonus.o $(INCLUDE) $(LINK) -g3	
+bonus: $(NAME_BONUS) 
+
+
+$(NAME_BONUS): $(OBJS) $(OBJS_BONUS)
+	$(CC) $(CFLAGS) -o $(NAME_BONUS) $(OBJS) $(OBJS_BONUS) $(INCLUDE) $(LINK) -g3	
 
 $(OBJS_BONUS) : $(PATH_OBJS)/%.o:%.c
 		mkdir -p $(PATH_OBJS)

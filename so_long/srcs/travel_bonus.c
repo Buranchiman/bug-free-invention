@@ -14,6 +14,7 @@
 
 int	walk_r(t_vars *vars)
 {
+	gameover(vars, 'r');
 	vars->dir = 0;
 	if (vars->map[vars->y][vars->x] == 'E' && vars->count != vars->items)
 		mlx_put_image_to_window(vars->mlx, vars->win, vars->esc,
@@ -42,6 +43,7 @@ int	walk_r(t_vars *vars)
 
 int	walk_l(t_vars *vars)
 {
+	gameover(vars, 'l');
 	vars->dir = 1;
 	if (vars->map[vars->y][vars->x] == 'E' && vars->count != vars->items)
 		mlx_put_image_to_window(vars->mlx, vars->win, vars->escl,
@@ -75,6 +77,7 @@ void	walk_u(t_vars *vars)
 	i = 0;
 	if (vars->map[vars->y - 1][vars->x] != '1')
 	{
+		gameover(vars, 'u');
 		while (i <= 6)
 		{
 			if (vars->dir == 0)
@@ -104,6 +107,7 @@ void	walk_d(t_vars *vars)
 	{
 		while (i <= 6)
 		{
+			gameover(vars, 'd');
 			if (vars->dir == 0)
 				anim_dr(vars, i);
 			else

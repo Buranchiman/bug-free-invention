@@ -68,7 +68,7 @@ int	close_all(t_vars *vars)
 	close_anim(vars, vars->exitcarrdown);
 	close_anim(vars, vars->entercarrdown);
 	close_anim(vars, vars->downrkey);
-	close_anim(vars, vars->tate);
+	mlx_destroy_image(vars->mlx, vars->tate);
 	mlx_do_sync(vars->mlx);
 	close_esc(vars);
 	exit(0);
@@ -104,12 +104,13 @@ int	main(int argc, char **argv)
 	if (checking(&data) == 0)
 		return (0);
 	vars_init(&vars, &data);
-	show_map(vars);
 	if (initframes(&vars) == 0)
 		close_all(&vars);
+	show_map(vars);
+	mlx_put_image_to_window(vars.mlx, vars.win, vars.tate,
+		vars.topx * 64, vars.topy * 64);
 	mlx_set_font(vars.mlx, vars.win, "9x15bold");
 	mlx_key_hook(vars.win, getkeyb, &vars);
-	mlx_loop_hook(vars.mlx, top_g, &vars);
 	mlx_hook(vars.win, 17, 0L, close_all, &vars);
 	mlx_loop(vars.mlx);
 }

@@ -69,7 +69,7 @@ typedef struct s_vars
 	t_frames		exitcarrdown;
 	t_frames		entercarrdown;
 	t_frames		downrkey;
-	t_frames		tate;
+	void			*tate;
 	void			*mlx;
 	void			*win;
 	void			*img;
@@ -82,13 +82,14 @@ typedef struct s_vars
 	void			*escl;
 	unsigned int	x;
 	unsigned int	y;
-	int				topx;
-	int				topy;
+	unsigned int	topx;
+	unsigned int	topy;
 	unsigned int	move;
 	unsigned int	count;
 	unsigned int	items;
 	char			**map;
-	unsigned int	dir;	
+	unsigned int	dir;
+	int				contain;	
 }				t_vars;
 
 void	maintain_dir(t_vars *vars);
@@ -139,5 +140,7 @@ int		checkall(char *name, t_map *data);
 int		initdown(t_vars *vars);
 int		top_g(t_vars *vars);
 void	close1(t_vars *vars);
+int	getkeyb(int keycode, t_vars *vars);
+void	gameover(t_vars *vars, char c);
 
 #endif
